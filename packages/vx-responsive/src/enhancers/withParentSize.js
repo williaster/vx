@@ -1,7 +1,16 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
+import ResizeObserver from 'resize-observer-polyfill';
 
-export default function withParentSize(BaseComponent) {
+export default function withParentSize(
+  BaseComponent,
+  containerProps = {
+    style: {
+      width: '100%',
+      height: '100%',
+    },
+  },
+) {
   class WrappedComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -13,36 +22,44 @@ export default function withParentSize(BaseComponent) {
 
       this.handleResize = debounce(
         this.resize.bind(this),
-        props.windowResizeDebounceTime
+        props.resizeDebounceTime,
       ).bind(this);
+      this.setContainerRef = this.setContainerRef.bind(this);
     }
 
     componentDidMount() {
-      window.addEventListener('resize', this.handleResize, false);
+      this.resizeObserver = new ResizeObserver((entries, observer) => {
+        for (const entry of entries) {
+          // use contentRect over getBoundingClientRect() because this is called before paint
+          this.resize(entry.contentRect);
+        }
+      });
+
+      this.resizeObserver.observe(this.container);
       this.resize();
     }
 
     componentWillUnmount() {
-      window.removeEventListener('resize', this.handleResize, false);
+      this.resizeObserver.disconnect();
     }
 
-    resize(event) {
+    setContainerRef(ref) {
+      this.container = ref;
+    }
+
+    resize(contentRect) {
+      console.log('resize', contentRect)
       if (this.container) {
-        var boundingRect = this.container.getBoundingClientRect();
-        this.setState((prevState, props) => ({
-          parentWidth: boundingRect.width,
-          parentHeight: boundingRect.height,
-        }));
+        const rect = contentRect || this.container.getBoundingClientRect();
+        const { width: parentWidth, height: parentHeight } = rect;
+        this.setState(() => ({ parentWidth, parentHeight }));
       }
     }
 
     render() {
       const { parentWidth, parentHeight } = this.state;
       return (
-        <div
-          style={{ width: '100%', height: '100%' }}
-          ref={(ref) => { this.container = ref; }}
-        >
+        <div ref={this.setContainerRef} {...containerProps}>
           {parentWidth !== null && parentHeight !== null &&
             <BaseComponent
               parentWidth={parentWidth}
@@ -55,7 +72,7 @@ export default function withParentSize(BaseComponent) {
   }
 
   WrappedComponent.defaultProps = {
-    windowResizeDebounceTime: 300,
+    resizeDebounceTime: 300,
   };
 
   return WrappedComponent;

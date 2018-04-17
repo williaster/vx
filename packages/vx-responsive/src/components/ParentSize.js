@@ -16,7 +16,7 @@ export default class ParentSize extends React.Component {
     this.setTarget = this.setTarget.bind(this);
   }
   componentDidMount() {
-    this.ro = new ResizeObserver((entries, observer) => {
+    this.resizeObserver = new ResizeObserver((entries, observer) => {
       for (const entry of entries) {
         const { left, top, width, height } = entry.contentRect;
         this.resize({
@@ -27,10 +27,10 @@ export default class ParentSize extends React.Component {
         });
       }
     });
-    this.ro.observe(this.target);
+    this.resizeObserver.observe(this.target);
   }
   componentWillUnmount() {
-    this.ro.disconnect();
+    this.resizeObserver.disconnect();
   }
   resize({ width, height, top, left }) {
     this.setState(() => ({

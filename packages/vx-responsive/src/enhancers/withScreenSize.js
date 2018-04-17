@@ -13,7 +13,7 @@ export default function withScreenSize(BaseComponent) {
 
       this.handleResize = debounce(
         this.resize.bind(this),
-        props.windowResizeDebounceTime
+        props.resizeDebounceTime
       ).bind(this);
     }
 
@@ -52,7 +52,7 @@ export default function withScreenSize(BaseComponent) {
   }
 
   WrappedComponent.defaultProps = {
-    windowResizeDebounceTime: 300,
+    resizeDebounceTime: 300,
   };
 
   return WrappedComponent;
