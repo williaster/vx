@@ -1,9 +1,9 @@
 import React from 'react';
 import { animated, useTransition, interpolate } from 'react-spring';
 import cx from 'classnames';
-import Orientation from '@vx/axis/lib/constants/orientation';
-import { TicksRendererProps, AxisScale } from '@vx/axis/lib/types';
-import { Text } from '@vx/text';
+import Orientation from '@visx/axis/lib/constants/orientation';
+import { TicksRendererProps, AxisScale } from '@visx/axis/lib/types';
+import { Text } from '@visx/text';
 
 import useLineTransitionConfig, {
   TransitionConfig,
@@ -43,7 +43,7 @@ export default function AnimatedTicks<Scale extends AxisScale>({
           return (
             <animated.g
               key={key}
-              className={cx('vx-axis-tick', tickClassName)}
+              className={cx('visx-axis-tick', tickClassName)}
               transform={tickTransform}
             >
               {!hideTicks && (

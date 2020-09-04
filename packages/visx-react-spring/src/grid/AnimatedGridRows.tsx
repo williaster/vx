@@ -1,6 +1,6 @@
 import React from 'react';
-import GridRows, { GridRowsProps } from '@vx/grid/lib/grids/GridRows';
-import { GridScale } from '@vx/grid/lib/types';
+import GridRows, { GridRowsProps } from '@visx/grid/lib/grids/GridRows';
+import { GridScale } from '@visx/grid/lib/types';
 import { TransitionConfig } from '../spring-configs/useLineTransitionConfig';
 import AnimatedGridLines from './AnimatedGridLines';
 
