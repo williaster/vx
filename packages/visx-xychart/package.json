@@ -1,7 +1,7 @@
 {
-  "name": "@vx/xychart",
+  "name": "@visx/xychart",
   "version": "0.0.0",
-  "description": "Composable cartesian coordinate chart built with vx primitives",
+  "description": "Composable cartesian coordinate chart built with visx primitives",
   "sideEffects": false,
   "private": true,
   "main": "lib/index.js",
@@ -13,10 +13,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hshoff/vx.git"
+    "url": "git+https://github.com/airbnb/visx.git"
   },
   "keywords": [
-    "vx",
+    "visx",
     "react",
     "d3",
     "visualizations",
@@ -30,9 +30,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hshoff/vx/issues"
+    "url": "https://github.com/airbnb/visx/issues"
   },
-  "homepage": "https://github.com/hshoff/vx#readme",
+  "homepage": "https://github.com/airbnb/visx#readme",
   "publishConfig": {
     "access": "public"
   },
