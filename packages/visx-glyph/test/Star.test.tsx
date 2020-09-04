@@ -1,32 +1,32 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { GlyphSquare } from '../src';
+import { GlyphStar } from '../src';
 
-describe('<GlyphSquare />', () => {
+describe('<GlyphStar />', () => {
   test('it should be defined', () => {
-    expect(GlyphSquare).toBeDefined();
+    expect(GlyphStar).toBeDefined();
   });
 
   test('it should be wrapped in a <Glyph />', () => {
-    const wrapper = shallow(<GlyphSquare />);
-    expect(wrapper.dive().prop('className')).toBe('vx-glyph');
+    const wrapper = shallow(<GlyphStar />);
+    expect(wrapper.dive().prop('className')).toBe('visx-glyph');
   });
 
   test('it should add className to <path />', () => {
-    const wrapper = shallow(<GlyphSquare className="test" />);
+    const wrapper = shallow(<GlyphStar className="test" />);
     expect(wrapper.find('.test')).toHaveLength(1);
   });
 
   test('it should take a children as function prop', () => {
     const fn = jest.fn();
-    shallow(<GlyphSquare>{fn}</GlyphSquare>);
+    shallow(<GlyphStar>{fn}</GlyphStar>);
     expect(fn).toHaveBeenCalled();
   });
 
   test('it should call children function with { path }', () => {
     const fn = jest.fn();
-    shallow(<GlyphSquare>{fn}</GlyphSquare>);
+    shallow(<GlyphStar>{fn}</GlyphStar>);
     const args = fn.mock.calls[0][0];
     const keys = Object.keys(args);
     expect(keys.includes('path')).toEqual(true);
@@ -34,7 +34,7 @@ describe('<GlyphSquare />', () => {
 
   test('it should take a size prop as a number', () => {
     const fn = jest.fn();
-    shallow(<GlyphSquare size={42}>{fn}</GlyphSquare>);
+    shallow(<GlyphStar size={42}>{fn}</GlyphStar>);
     const args = fn.mock.calls[0][0];
     expect(args.path.size()()).toBe(42);
   });
@@ -42,7 +42,7 @@ describe('<GlyphSquare />', () => {
   test('it should take a size prop as a function', () => {
     const fn = jest.fn();
     const sizeFn = () => 42;
-    shallow(<GlyphSquare size={sizeFn}>{fn}</GlyphSquare>);
+    shallow(<GlyphStar size={sizeFn}>{fn}</GlyphStar>);
     const args = fn.mock.calls[0][0];
     expect(args.path.size()()).toBe(42);
   });

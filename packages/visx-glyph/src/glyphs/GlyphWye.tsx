@@ -1,31 +1,31 @@
 import React from 'react';
 import cx from 'classnames';
-import { Symbol, symbol, symbolStar } from 'd3-shape';
+import { Symbol, symbol, symbolWye } from 'd3-shape';
 import Glyph from './Glyph';
 
-export type GlyphStarProps<Datum> = {
+export type GlyphWyeProps<Datum> = {
   /** Render function override which is passed the configured path generator. */
-  children?: ({ path }: { path: Symbol<any, Datum> }) => React.ReactNode;
+  children?: ({ path }: { path: Symbol<unknown, Datum> }) => React.ReactNode;
   /** classname to apply to glyph path element. */
   className?: string;
   /** Top offset to apply to glyph g element container. */
   top?: number;
   /** Left offset to apply to glyph g element container. */
   left?: number;
-  /** Size of star in px, or an accessor which takes Datum as input and returns a size. */
+  /** Size of wye glyph in px, or an accessor which takes Datum as input and returns a size. */
   size?: number | ((d: Datum) => number);
 };
 
-export default function GlyphStar<Datum = any>({
+export default function GlyphWye<Datum = unknown>({
   children,
   className,
   top,
   left,
   size,
   ...restProps
-}: GlyphStarProps<Datum> & Omit<React.SVGProps<SVGPathElement>, keyof GlyphStarProps<Datum>>) {
+}: GlyphWyeProps<Datum> & Omit<React.SVGProps<SVGPathElement>, keyof GlyphWyeProps<Datum>>) {
   const path = symbol<Datum>();
-  path.type(symbolStar);
+  path.type(symbolWye);
 
   // TS can't differentiate the method overload here
   if (typeof size === 'number') path.size(size);
@@ -34,7 +34,7 @@ export default function GlyphStar<Datum = any>({
   if (children) return <>{children({ path })}</>;
   return (
     <Glyph top={top} left={left}>
-      <path className={cx('vx-glyph-star', className)} d={path() || ''} {...restProps} />
+      <path className={cx('visx-glyph-wye', className)} d={path() || ''} {...restProps} />
     </Glyph>
   );
 }

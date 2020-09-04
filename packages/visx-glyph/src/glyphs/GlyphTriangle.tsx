@@ -1,31 +1,32 @@
 import React from 'react';
 import cx from 'classnames';
-import { Symbol, symbol, symbolCross } from 'd3-shape';
+import { Symbol, symbol, symbolTriangle } from 'd3-shape';
 import Glyph from './Glyph';
 
-export type GlyphCrossProps<Datum> = {
+export type GlyphTriangleProps<Datum> = {
   /** Render function override which is passed the configured path generator. */
-  children?: ({ path }: { path: Symbol<any, Datum> }) => React.ReactNode;
+  children?: ({ path }: { path: Symbol<unknown, Datum> }) => React.ReactNode;
   /** classname to apply to glyph path element. */
   className?: string;
   /** Top offset to apply to glyph g element container. */
   top?: number;
   /** Left offset to apply to glyph g element container. */
   left?: number;
-  /** Size of cross in px, or an accessor which takes Datum as input and returns a size. */
+  /** Size of triangle in px, or an accessor which takes Datum as input and returns a size. */
   size?: number | ((d: Datum) => number);
 };
 
-export default function GlyphCross<Datum = any>({
+export default function GlyphTriangle<Datum = unknown>({
   children,
   className,
   top,
   left,
   size,
   ...restProps
-}: GlyphCrossProps<Datum> & Omit<React.SVGProps<SVGPathElement>, keyof GlyphCrossProps<Datum>>) {
+}: GlyphTriangleProps<Datum> &
+  Omit<React.SVGProps<SVGPathElement>, keyof GlyphTriangleProps<Datum>>) {
   const path = symbol<Datum>();
-  path.type(symbolCross);
+  path.type(symbolTriangle);
 
   // TS can't differentiate the method overload here
   if (typeof size === 'number') path.size(size);
@@ -35,7 +36,7 @@ export default function GlyphCross<Datum = any>({
 
   return (
     <Glyph top={top} left={left}>
-      <path className={cx('vx-glyph-cross', className)} d={path() || ''} {...restProps} />
+      <path className={cx('visx-glyph-triangle', className)} d={path() || ''} {...restProps} />
     </Glyph>
   );
 }
