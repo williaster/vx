@@ -1,5 +1,5 @@
 import React from 'react';
-import { lightTheme, darkTheme, XYChartTheme } from '@vx/xychart';
+import { lightTheme, darkTheme, XYChartTheme } from '@visx/xychart';
 import customTheme from './customTheme';
 
 type ControlsProps = {

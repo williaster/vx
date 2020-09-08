@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { XYChart, ThemeProvider, lightTheme, XYChartTheme } from '@vx/xychart';
+import { XYChart, ThemeProvider, lightTheme, XYChartTheme } from '@visx/xychart';
 import Controls from './Controls';
 
 type Props = {
